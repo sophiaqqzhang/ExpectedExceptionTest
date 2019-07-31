@@ -31,8 +31,10 @@ build/
 .vscode/
 
 ### maven ###
-/.mvn/
+.mvn
 
 ### target ###
-/target/
-/test-output/
+target/
+
+### output ###
+test-output/
