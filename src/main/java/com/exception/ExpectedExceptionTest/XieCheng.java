@@ -10,6 +10,8 @@ import org.openqa.selenium.support.ui.Select;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+//import org.openqa.selenium.chrome.ChromeDriver;
+//import org.openqa.selenium.ie.InternetExplorerDriver;
 
 public class XieCheng {
     private static WebDriver driver;
@@ -17,6 +19,10 @@ public class XieCheng {
     private void setDriver() {
         System.setProperty("webdriver.gecko.driver", "C:\\driver\\geckodriver.exe");
         driver = new FirefoxDriver();
+//      System.setProperty("webdriver.chrome.driver", "C:\\driver\\chromedriver.exe");
+//      driver = new ChromeDriver();
+//      System.setProperty("webdriver.ie.driver", "C:\\driver\\IEDriverServer.exe");
+//      driver = new InternetExplorerDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
@@ -25,7 +31,7 @@ public class XieCheng {
         driver.get("https://www.baidu.com/");
         driver.findElement(By.id("kw")).sendKeys("携程");
         driver.findElement(By.id("su")).click();
-        driver.findElement(By.cssSelector("div#content_left h2>a[title2=主标题]")).click();
+        driver.findElement(By.cssSelector("h2>a[title2=主标题]")).click();
     }
 
     private void searchhotels() throws InterruptedException {
@@ -38,7 +44,6 @@ public class XieCheng {
             driver.switchTo().window(h);//否，切换至新窗口
         }
         System.out.println("New page title is:" + driver.getTitle());
-
         driver.findElement(By.cssSelector("ul#searchBoxUl>li:first-of-type")).click();//酒店
         driver.findElement(By.cssSelector("div.s_content>p#hotelSwitch>a:first-of-type")).click();//国内酒店
         //destination
@@ -60,6 +65,7 @@ public class XieCheng {
         adultplus.click();
 
         WebElement childplus = driver.findElement(By.cssSelector("span#J_ChildCount i.icon_numplus"));//1children
+        Thread.sleep(1000);
         childplus.click();
         Thread.sleep(2000);
         Select childageVal = new Select(driver.findElement(By.id("J_childageVal0")));//children age
@@ -75,7 +81,6 @@ public class XieCheng {
         Alert alert = driver.switchTo().alert();
         alert.accept();
     }
-
     private void printHotelList() {
         List<WebElement> hotelList = driver.findElements(By.cssSelector("h2.hotel_name>a"));
         for (WebElement hotelname : hotelList) {
@@ -83,16 +88,32 @@ public class XieCheng {
         }
     }
 
+    //选取"精选" 酒店中，价格最便宜的作为best choice
+    private void bestChoice() {
+        List<WebElement> choiceness = driver.findElements(By.xpath("//span[@class='label_selection']/parent::a"));
+        List<WebElement> hotelPrices = driver.findElements(By.xpath("//span[@class='label_selection']/ancestor::ul/li[3]//span[@class='J_price_lowList']"));
+        int a = 0;
+        int[] price = new int[hotelPrices.size()];
+        int pr = Integer.parseInt(hotelPrices.get(0).getText());//pr=price[0]
+        for (int i = 1; i < hotelPrices.size(); i++) {
+            price[i] = Integer.parseInt(hotelPrices.get(i).getText());
+            if (price[i] < pr) {
+                pr = price[i];
+                a = i;
+            }
+        }
+        System.out.println("The best choice is:  " + choiceness.get(a).getText() + ":  " + hotelPrices.get(a).getText());
+    }
     private void quit() {
         driver.quit();
     }
-
     public static void main(String[] args) throws InterruptedException {
         XieCheng xc = new XieCheng();
         xc.setDriver();
         xc.openOfficalWebsite();
         xc.searchhotels();
         xc.printHotelList();
+        xc.bestChoice();
         xc.quit();
     }
 }
