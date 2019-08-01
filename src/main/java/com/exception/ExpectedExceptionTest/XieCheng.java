@@ -39,7 +39,7 @@ public class XieCheng {
         String currentWindow = driver.getWindowHandle();//获取当前窗口句柄
         Set<String> handles = driver.getWindowHandles();//获取所有窗口句柄
         for (String h : handles) {
-            if (currentWindow.equals(h))//判断it.next()是否是当前窗口
+            if (currentWindow.equals(h))//判断h 是否是当前窗口
                 continue;//是，跳出，继续迭代
             driver.switchTo().window(h);//否，切换至新窗口
         }
@@ -103,6 +103,7 @@ public class XieCheng {
             }
         }
         System.out.println("The best choice is:  " + choiceness.get(a).getText() + ":  " + hotelPrices.get(a).getText());
+
     }
     private void quit() {
         driver.quit();
