@@ -15,7 +15,6 @@ import java.util.concurrent.TimeUnit;
 
 public class XieCheng {
     private static WebDriver driver;
-
     private void setDriver() {
         System.setProperty("webdriver.gecko.driver", "C:\\driver\\geckodriver.exe");
         driver = new FirefoxDriver();
@@ -26,14 +25,12 @@ public class XieCheng {
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
-
     private void openOfficalWebsite() {
         driver.get("https://www.baidu.com/");
         driver.findElement(By.id("kw")).sendKeys("携程");
         driver.findElement(By.id("su")).click();
         driver.findElement(By.cssSelector("h2>a[title2=主标题]")).click();
     }
-
     private void searchhotels() throws InterruptedException {
         Thread.sleep(5000);
         String currentWindow = driver.getWindowHandle();//获取当前窗口句柄
@@ -63,13 +60,11 @@ public class XieCheng {
         WebElement adultplus = driver.findElement(By.cssSelector("span#J_AdultCount i.icon_numplus"));
         adultplus.click();
         adultplus.click();
-
         WebElement childplus = driver.findElement(By.cssSelector("span#J_ChildCount i.icon_numplus"));//1children
         Thread.sleep(1000);
         childplus.click();
         Thread.sleep(2000);
         Select childageVal = new Select(driver.findElement(By.id("J_childageVal0")));//children age
-
         childageVal.selectByIndex(2);
         driver.findElement(By.id("J_RoomGuestInfoBtnOK")).click();//click confirm button
         //hotel lever
