@@ -47,7 +47,7 @@ public class Screenshot2 {
 //      (创建一个.png 文件， 将截图copy进去)
         File desFile = new File(".\\Screenshot2\\screen.png");
 //      use selenium.io.FileHandler to copy the screenshot to the new file
-        FileHandler.copy(scrFile, desFile);// 必须确保Screenshot2已存在，否则报错
+        FileHandler.copy(scrFile, desFile);// 必须确保Screenshot2已存在，否则报错,因为FileHandler 不会自动创建不存在的目录
     }
 
     private void elementScreenshot() throws IOException {
@@ -56,7 +56,7 @@ public class Screenshot2 {
         // 调用getScreenshotAs（）实现截图，并将截图保存为scrFile
         File srcFile = scrshot.getScreenshotAs(OutputType.FILE);
         BufferedImage fullImg = ImageIO.read(srcFile);//File file
-        WebElement ele = driver.findElement(By.id("result_logo"));
+        WebElement ele = driver.findElement(By.xpath("//a[@id='result_logo']/img[1]"));
         Point point = ele.getLocation();
         int width = ele.getSize().getWidth();
         int height = ele.getSize().getHeight();
