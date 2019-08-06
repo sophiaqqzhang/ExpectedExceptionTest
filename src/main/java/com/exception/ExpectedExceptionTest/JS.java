@@ -20,7 +20,7 @@ public class JS {
         driver.quit();
     }
 
-    private void scrollTo() {
+    private void scrollTo() {//operate the browser scroll bar, notes: if the window is too small and the element is not visible,then driver can't find it
         setDriver();
         driver.get("https://www.baidu.com/");
         Dimension targetSize = new Dimension(800, 800);
@@ -43,9 +43,20 @@ public class JS {
         quit();
     }
 
+    private void Jquery() {//jquery practice
+        setDriver();
+        driver.get("https://www.baidu.com/");
+        String jq1 = "$('#kw').val('jquery')";
+        String jq2 = "$('.bg.s_btn').click()";
+        ((JavascriptExecutor) driver).executeScript(jq1);
+        ((JavascriptExecutor) driver).executeScript(jq2);
+        quit();
+    }
+
     public static void main(String[] args) {
         JS js = new JS();
-        js.scrollTo();
-        js.textAreaInput();
+//        js.scrollTo();
+//        js.textAreaInput();
+        js.Jquery();
     }
 }
