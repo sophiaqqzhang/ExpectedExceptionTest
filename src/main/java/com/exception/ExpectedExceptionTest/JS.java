@@ -10,17 +10,17 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class JS {
     private static WebDriver driver;
-
     private void setDriver() {
         System.setProperty("webdriver.gecko.driver", "c:\\driver\\geckodriver.exe");
         driver = new FirefoxDriver();
     }
-
     private void quit() {
         driver.quit();
     }
 
-    private void scrollTo() {//operate the browser scroll bar, notes: if the window is too small and the element is not visible,then driver can't find it
+    //operate the browser scroll bar,
+    // notes: if the window is too small and the element is not visible,then driver can't find it
+    private void scrollTo() {
         setDriver();
         driver.get("https://www.baidu.com/");
         Dimension targetSize = new Dimension(800, 800);
@@ -33,7 +33,8 @@ public class JS {
         quit();
     }
 
-    private void textAreaInput() {//use js to input text in html document
+    //use js to input text in html document
+    private void textAreaInput() {
         setDriver();
         driver.get("file:///C:\\codebase\\ExpectedExceptionTest\\new 1.html");//打开本地Html文件
         JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -55,8 +56,8 @@ public class JS {
 
     public static void main(String[] args) {
         JS js = new JS();
-//        js.scrollTo();
-//        js.textAreaInput();
+        js.scrollTo();
+        js.textAreaInput();
         js.Jquery();
     }
 }
