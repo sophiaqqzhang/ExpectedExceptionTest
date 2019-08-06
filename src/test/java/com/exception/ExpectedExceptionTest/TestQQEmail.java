@@ -27,7 +27,7 @@ public class TestQQEmail {
 
     @Test(dependsOnMethods = {"wr"})
     private void check() {
-        String expected = "木叶》for test";
+        String expected = "木叶》for test1";
         Assert.assertTrue(qqMail.checkInbox().contains(expected));
     }
 }

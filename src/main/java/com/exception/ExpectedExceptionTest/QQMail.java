@@ -34,7 +34,7 @@ public class QQMail {
         driver.findElement(By.cssSelector("div#leftPanel.newskinbody>div#navBarDiv>ul>li#composebtn_td")).click();
         driver.switchTo().frame(driver.findElement(By.id("mainFrame")));
         driver.findElement(By.xpath("//div[@id='toAreaCtrl']/div[2]/input")).sendKeys("1035681086@qq.com");
-        driver.findElement(By.cssSelector("input#subject")).sendKeys("for test");
+        driver.findElement(By.cssSelector("input#subject")).sendKeys("for test1");
         driver.switchTo().frame(driver.findElement(By.tagName("iframe")));
         driver.findElement(By.tagName("body")).sendKeys("an email from auto program.");
         driver.switchTo().parentFrame();
@@ -66,7 +66,7 @@ public class QQMail {
         QQMail qq = new QQMail();
         qq.setDriver();
         qq.logOn();
-        qq.writeANewLetter();
+//        qq.writeANewLetter();
         qq.checkInbox();
         qq.logOut();
         qq.quit();
